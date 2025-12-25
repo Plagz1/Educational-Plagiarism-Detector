@@ -19,6 +19,7 @@ for resource in REQUIRED_RESOURCES:
 lemmatizer = WordNetLemmatizer()
 STOP_WORDS = set(stopwords.words("english"))
 
+
 def preprocess_text(text: str) -> str:
     text = text.lower()
     text = re.sub(r"[^a-z\s]", "", text)
