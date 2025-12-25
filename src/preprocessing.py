@@ -1,22 +1,12 @@
 import re
 import nltk
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 
-REQUIRED_RESOURCES = [
-    "punkt",
-    "punkt_tab",
-    "wordnet",
-    "stopwords",
-]
+nltk.download("punkt", quiet=True)
+nltk.download("stopwords", quiet=True)
 
-for resource in REQUIRED_RESOURCES:
-    try:
-        nltk.data.find(resource)
-    except LookupError:
-        nltk.download(resource)
-
-lemmatizer = WordNetLemmatizer()
+stemmer = PorterStemmer()
 STOP_WORDS = set(stopwords.words("english"))
 
 
@@ -26,7 +16,7 @@ def preprocess_text(text: str) -> str:
 
     tokens = nltk.word_tokenize(text)
     tokens = [
-        lemmatizer.lemmatize(token)
+        stemmer.stem(token)
         for token in tokens
         if token not in STOP_WORDS
     ]
